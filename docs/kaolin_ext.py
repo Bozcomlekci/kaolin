@@ -18,12 +18,12 @@ KAOLIN_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir
 
 
 def run_apidoc(_):
-    # This is runnning sphinx-apidoc which is automatically generating
+    # This is running sphinx-apidoc which is automatically generating
     # .rst files for each python file in kaolin
     # This won't override existing .rst files
     # Like kaolin.ops.rst where we added an introduction
     from sphinx.ext import apidoc
-    # Those are files are excluded from parsing
+    # Those files are excluded from parsing
     # Such as files where the functions are forwarded to the parent namespace
     EXCLUDE_PATHS = [
         str(os.path.join(KAOLIN_ROOT, path)) for path in [
@@ -49,6 +49,7 @@ def run_apidoc(_):
             "kaolin/ops/conversions/trianglemesh.py",
             "kaolin/ops/conversions/voxelgrid.py",
             "kaolin/ops/conversions/tetmesh.py",
+            "kaolin/ops/conversions/flexicubes/*.py",
             "kaolin/ops/mesh/check_sign.py",
             "kaolin/ops/mesh/mesh.py",
             "kaolin/ops/mesh/tetmesh.py",
@@ -100,6 +101,8 @@ def run_apidoc(_):
             "kaolin/render/camera/legacy.py",
             "kaolin/render/camera/raygen.py",
             "kaolin/render/camera/gsplats.py",
+            "kaolin/render/camera/polyscope.py",
+            "kaolin/render/camera/trajectory.py",
             "kaolin/non_commercial/flexicubes/",
             "kaolin/non_commercial/flexicubes/flexicubes.py",
             "kaolin/non_commercial/flexicubes/tables.py"

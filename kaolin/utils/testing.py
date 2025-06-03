@@ -1,4 +1,4 @@
-# Copyright (c) 2019,20-21-22 NVIDIA CORPORATION & AFFILIATES.
+# Copyright (c) 2019,20-21-22-25 NVIDIA CORPORATION & AFFILIATES.
 # All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,17 +17,19 @@ import copy
 import collections
 import functools
 import logging
+import random
 import numpy as np
 import torch
+
+import kaolin.ops.spc.uint8 as uint8_ops
+import kaolin.ops.random as random
+
 
 # Optional
 try:
     import torchvision
 except Exception as e:
     torchvision = None
-
-import kaolin.ops.random as random
-from kaolin.ops.spc.uint8 import uint8_bits_sum
 
 BOOL_DTYPES = [torch.bool]
 INT_DTYPES = [torch.uint8, torch.short, torch.int, torch.long]
@@ -211,7 +213,7 @@ def check_spc_octrees(octrees, lengths, batch_size=None, level=None,
             cur_level += 1
             cur_level_nodes = octree[cur_node_idx:cur_node_idx + cur_num_nodes]
             cur_node_idx += cur_num_nodes
-            cur_num_nodes = int(torch.sum(uint8_bits_sum(cur_level_nodes).long()))
+            cur_num_nodes = int(torch.sum(uint8_ops.uint8_bits_sum(cur_level_nodes).long()))
         if cur_node_idx > length:
             if throw:
                 raise ValueError(f"lengths at {i} is {length}, "
